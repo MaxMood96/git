@@ -40,7 +40,7 @@ test_expect_success 'setup folder with ignored files' '
 test_expect_success 'Verify behavior of status on folders with ignored files' '
 	test_when_finished "git clean -fdx" &&
 	git status --porcelain=v2 --ignored --untracked-files=all --show-ignored-directory >output 2>err &&
-	test_i18ncmp expect output &&
+	test_cmp expect output &&
 	grep "deprecated.*use --ignored=matching instead" err
 '
 
@@ -70,7 +70,7 @@ test_expect_success 'setup folder with tracked & ignored files' '
 test_expect_success 'Verify status on folder with tracked & ignored files' '
 	test_when_finished "git clean -fdx && git reset HEAD~1 --hard" &&
 	git status --porcelain=v2 --ignored --untracked-files=all --show-ignored-directory >output &&
-	test_i18ncmp expect output
+	test_cmp expect output
 '
 
 
@@ -99,7 +99,7 @@ test_expect_success 'setup folder with tracked & ignored files' '
 test_expect_success 'Verify status on folder with tracked & ignored files' '
 	test_when_finished "git clean -fdx" &&
 	git status --porcelain=v2 --ignored --untracked-files=all --show-ignored-directory >output &&
-	test_i18ncmp expect output
+	test_cmp expect output
 '
 
 # Test status behavior on ignored folder
@@ -118,7 +118,7 @@ test_expect_success 'setup folder with tracked & ignored files' '
 test_expect_success 'Verify status on folder with tracked & ignored files' '
 	test_when_finished "git clean -fdx" &&
 	git status --porcelain=v2 --ignored --untracked-files=all --show-ignored-directory >output &&
-	test_i18ncmp expect output
+	test_cmp expect output
 '
 
 # Test status behavior on ignored folder with tracked file
@@ -144,7 +144,7 @@ test_expect_success 'setup folder with tracked & ignored files' '
 test_expect_success 'Verify status on folder with tracked & ignored files' '
 	test_when_finished "git clean -fdx && git reset HEAD~1 --hard" &&
 	git status --porcelain=v2 --ignored --untracked-files=all --show-ignored-directory >output &&
-	test_i18ncmp expect output
+	test_cmp expect output
 '
 
 test_done
