@@ -121,7 +121,7 @@ static inline void finish_object__ma(struct object *obj)
 		return;
 
 	case MA_ALLOW_PROMISOR:
-		if (is_promisor_object(&obj->oid))
+		if (is_promisor_object(the_repository, &obj->oid))
 			return;
 		die("unexpected missing %s object '%s'",
 		    type_name(obj->type), oid_to_hex(&obj->oid));
@@ -483,6 +483,13 @@ static int try_bitmap_traversal(struct rev_info *revs,
 	 * of commits we'd get would be essentially random.
 	 */
 	if (revs->max_count >= 0)
+		return -1;
+
+	/*
+	 * We can't know which commits were left/right in a single traversal,
+	 * and we don't yet know how to traverse them separately.
+	 */
+	if (revs->left_right)
 		return -1;
 
 	bitmap_git = prepare_bitmap_walk(revs, filter_provided_objects);

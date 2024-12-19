@@ -89,7 +89,6 @@ int cmd__path_walk(int argc, const char **argv)
 		OPT_END(),
 	};
 
-	initialize_repository(the_repository);
 	setup_git_directory();
 	revs.repo = the_repository;
 
@@ -129,5 +128,6 @@ int cmd__path_walk(int argc, const char **argv)
 		clear_pattern_list(info.pl);
 		free(info.pl);
 	}
+	release_revisions(&revs);
 	return res;
 }
